@@ -50,7 +50,7 @@ details = Div(text="Selection Details:", width=800)
 # In[18]:
 
 
-source = ColumnDataSource(data=load_data(wine_csv))
+source = ColumnDataSource(data=load_data())
 
 
 # In[19]:
