@@ -7,6 +7,10 @@ from bokeh.models import WheelZoomTool, SaveTool, LassoSelectTool
 from bokeh.io import curdoc
 from functools import lru_cache
 
+from actual_vs_goal_cumulative import actual_goal_cumulative
+from stacked_chart import stacked_bar_chart
+from weekly_actual_goal import weekly_actual_goal
+
 @lru_cache()
 def load_data():
     df = pd.read_csv('strava_data.csv', index_col=0)
@@ -17,35 +21,14 @@ run_data_df = load_data()
 all_weeks = list(load_data()['week'].unique())
 X_AXIS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
+
 desc = Div(text="Weekly runs", width=800)
-weeks_runs = Select(title="Runs", options=all_weeks, value="All")
+weeks_runs = Select(title="Choose Week", options=all_weeks, value="Week 01")
 
 source = ColumnDataSource(data=load_data())
-
-hover = HoverTool(tooltips=[
-    ("Week", "@week"),
-    ("Kilometers", "@kms"),
-])
-TOOLS = [
-    hover, BoxZoomTool(), LassoSelectTool(), WheelZoomTool(), PanTool(),
-    ResetTool(), SaveTool()
-]
-
-p = figure(
-    plot_height=600,
-    plot_width=700,
-    title="Weekly running",
-    tools=TOOLS,
-    x_axis_label="kms",
-    y_axis_label="day od the week",
-    toolbar_location="above",
-    x_range=X_AXIS,
-    x_minor_ticks=2, y_range=(0, 15),)
-
-p.vbar(x='day_of_week', bottom=0, top='kms',
-         color='blue', width=0.75,
-         legend='Actual', source=source)
-
+p = weekly_actual_goal(source, X_AXIS)
+week_stacked_bar = stacked_bar_chart(source, X_AXIS)
+weekly_actual_cumulative_fig = actual_goal_cumulative(source, X_AXIS)
 
 def select_weeks():
     """ Use the current selections to determine which filters to apply to the
@@ -58,7 +41,7 @@ def select_weeks():
 
     # Filter by week and weekly_actual_cumulative
     if week_val == "week 01":
-        selected = df[df.week == 'week 01']
+        selected = df #[df.week == 'week 01']
     else:
         selected = df[(df.week == week_val)]
 
@@ -95,7 +78,11 @@ for control in controls:
 source.on_change("selected", selection_change)
 
 inputs = widgetbox(*controls, sizing_mode="fixed")
-l = layout([[desc], [weeks_runs, p]], sizing_mode="fixed")
+l = layout([[desc],
+            [weeks_runs],
+            [weekly_actual_cumulative_fig],
+            [p],
+            [week_stacked_bar]], sizing_mode="scale_width")
 
 update()
 curdoc().add_root(l)
