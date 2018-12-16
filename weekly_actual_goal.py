@@ -26,8 +26,8 @@ def weekly_actual_goal(source, X_AXIS):
         plot_width=600,
         title="Weekly running",
         tools=TOOLS,
-        x_axis_label="kms",
-        y_axis_label="day od the week",
+        x_axis_label="Day of the week",
+        y_axis_label="day of the week",
         toolbar_location="above",
         x_range=X_AXIS,
         x_minor_ticks=2, y_range=(0, 15),)
