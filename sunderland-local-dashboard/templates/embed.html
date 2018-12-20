@@ -1,0 +1,13 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+  <main id="content" role="main">
+    <h1>{{ service_name}} dashboard for {{ council_name }} County Council &nbsp;&nbsp;&nbsp;&nbsp; <a role="button" class="button button-start" href='/logout'>Sign out</a></h1>
+    <!-- {% for link in links %}
+       <li><a href="{{ link.href }}">{{ link.caption }}</a></li>
+   {% endfor %} -->
+    <p class="lede">Local authority performance data for #VerifyLocal pilots</p>
+    {{ script | safe }}
+  </main>
+{% endblock %}
