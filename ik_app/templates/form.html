@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+	<p>Hello, what is your name</p>
+	<form action="/form" method="post">
+		<label for="usernane">User</label>
+		<input id="username" type="text" name="name"/>
+		<input type="submit" value="submit"/>
+
+	</form>
+{% endblock %}
