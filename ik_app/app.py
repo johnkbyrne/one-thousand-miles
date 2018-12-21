@@ -78,7 +78,7 @@ def session_handler():
 	'''
 	Set flask control a session (simple [non existant] authentication)
 	'''
-	# import pdb; pdb.set_trace() 
+	# import pdb; pdb.set_trace()
 	if request.method == 'POST':
 		# check credentials
 		name = request.form['name'].strip()
