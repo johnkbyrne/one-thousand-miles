@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="content" role="main">
+  <h1>Distance run in 2018</h1>
+		{{ the_div | safe }}
+	  {{ the_script | safe }}
+
+		{{ actual_div | safe }}
+		{{ actual_script | safe }}
+
+		{{ layout_div | safe }}
+		{{ layout_script | safe }}
+
+  </main>
+  {% endblock %}

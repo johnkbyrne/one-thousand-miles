@@ -25,7 +25,7 @@ def weekly_actual_goal(source, X_AXIS):
         plot_height=300,
         plot_width=600,
         title="Weekly running",
-        tools=TOOLS,
+        tools='',
         x_axis_label="Day of the week",
         y_axis_label="day of the week",
         toolbar_location="above",

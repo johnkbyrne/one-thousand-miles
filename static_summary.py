@@ -50,7 +50,7 @@ def summary_cumulative(source, X_AXIS):
 def actual_weekly_vs_goal(source, X_AXIS):
     cds_bar = source
     X_AXIS = [str(x) for x in X_AXIS]
-    print('in actual weekly vs goal', X_AXIS)
+    
     # Create a figure with a datetime type x-axis
     fig = figure(title='actual versus goals',
                  plot_height=300, plot_width=600,

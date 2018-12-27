@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-	{% if name %}
+	<!-- {% if name %}
 		<h1>Hello, {{ name }} </h1>
 	{% else %}
 		<h1>Hello, World!</h1>
-	{% endif %}
+	{% endif %} -->
+
+	    <h1>Runs over the last {{ bars_count }} weeks</h1>
+	    {{ the_div|safe }}
+	    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
+	    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
+
+			{{ the_script|safe }}
+
+
 {% endblock %}
