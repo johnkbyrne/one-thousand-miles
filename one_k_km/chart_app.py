@@ -95,52 +95,8 @@ p = weekly_actual_goal(source, X_AXIS)
 week_stacked_bar = stacked_bar_chart(source, X_AXIS)
 weekly_actual_cumulative_fig = actual_goal_cumulative(source, X_AXIS)
 
-# callback = CustomJS(args=dict(source=source), code="""
-#         var data = source.data;
-#         var f = cb_obj.value
-#         var x = data['x']
-#         var y = data['y']
-#         for (var i = 0; i < x.length; i++) {
-#             y[i] = Math.pow(x[i], f)
-#         }
-#         source.change.emit();
-#     """)
-
-# var x = data['day_of_week']
-# callback = CustomJS(args=dict(source=source), code="""
-#     var data = source.data;
-#     var f = cb_obj.value
-#     var x = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-#     var y = data['kms']
-#     for (var i = 0; i < x.length; i++) {
-#         y[i] = Math.pow(x[i], f)
-#     }
-#     source.change.emit();
-# """)
-
-
-# weeks_runs = Select(title="Choose Week", options=all_weeks, value="Week 01", callback=callback)
-
-# slider = Slider(start=0.1, end=4, value=1, step=.1, title="power")
-# weeks_runs.js_on_change('value', callback)
-
-# layout = column(weeks_runs, p)
-
-# show(layout)
-
 desc = Div(text="Weekly runs", width=800)
 weeks_runs = Select(title="Choose Week", options=all_weeks, value="Week 01")
-
-callback = CustomJS(args=dict(source=source), code="""
-    var data = source.data;
-    var f = cb_obj.value
-    var x = data['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    var y = data['kms']
-    for (var i = 0; i < x.length; i++) {
-        y[i] = Math.pow(x[i], f)
-    }
-    source.change.emit();
-""")
 
 
 controls = [weeks_runs]

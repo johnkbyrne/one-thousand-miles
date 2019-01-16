@@ -14,7 +14,7 @@ from static_summary import actual_weekly_vs_goal, summary_cumulative
 
 from flask import Flask, render_template
 
-from bokeh.embed import server_document
+from bokeh.embed import server_document, components
 from bokeh.layouts import column
 from bokeh.server.server import Server
 from bokeh.themes import Theme
@@ -54,16 +54,16 @@ total_kms = run_data_df['kms'].sum()
 
 weekly_source = ColumnDataSource(data=load_weekly())
 all_week_number = list(load_weekly()['week_number'])
-# summary_actual = actual_weekly_vs_goal(weekly_source, all_week_number)
-# cumulative_actual = summary_cumulative(weekly_source, all_week_number)
-# l = layout([[summary_actual]], sizing_mode="scale_width")
+# summary_actual_module = actual_weekly_vs_goal(weekly_source, all_week_number)
+# cumulative_actual_module = summary_cumulative(weekly_source, all_week_number)
+
 def modify_doc(doc):
     run_data_df = load_data()
     week_data_df = load_weekly()
 
     all_weeks = list(load_data()['week'].unique())
     all_week_number = list(load_weekly()['week_number'])
-    # print(all_week_number)
+
     X_AXIS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 
@@ -94,7 +94,7 @@ def modify_doc(doc):
         else:
             selected = df[(df.week == week_val)]
 
-        desc.text = f"Week: {week_val}"
+        desc.text = f"Showing data for {week_val}"
         return selected
 
     def update():
@@ -120,7 +120,6 @@ def modify_doc(doc):
                 weekly_actual_cumulative_fig,
                 p,
                 week_stacked_bar]
-
     for chart in charts:
         doc.add_root(column(chart))
 
@@ -131,8 +130,17 @@ def modify_doc(doc):
 @app.route('/', methods=['GET'])
 def bkapp_page():
     script = server_document('http://localhost:5006/bkapp')
-    return render_template("embed.html", script=script, template="Flask",
-                            total_kms=total_kms)
+    # runs_script, runs_div = components((cumulative_actual_module, summary_actual_module))
+    # a_script, a_div = components(summary_actual_module)
+
+
+    return render_template("embed.html",
+                            script=script,
+                            template="Flask",
+                            total_kms=total_kms,
+                            # the_div=runs_div,
+							# the_script=runs_script
+                            )
 
 
 def bk_worker():
