@@ -4,16 +4,26 @@
   {% block content %}
   <main id="content" role="main">
     <div>
-In 2018 I ran {{ total_kms }} kilometers out of a total goul of 1000 kilometers
+
+
+    <div class="row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-8" style="background-color:cream;">
+    In 2018 I ran {{ total_kms }} kilometers out of a total goul of 1000 kilometers
+    </div>
+    <div class="col-sm-2" style="background-color:dark-green;">
+    </div>
+  </div>
     </div>
 
     <div class="row">
     <div class="col-sm-2">
     </div>
-    <div class="col-sm-8" style="background-color:blue;">
+    <div class="col-sm-8" style="background-color:cream;">
       {{ script|safe }}
     </div>
-    <div class="col-sm-2" style="background-color:pink;">
+    <div class="col-sm-2" style="background-color:dark-green;">
     </div>
   </div>
 
