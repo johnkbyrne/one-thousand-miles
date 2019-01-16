@@ -1,6 +1,6 @@
 import pandas as pd
 from bokeh.plotting import figure
-from bokeh.layouts import layout, widgetbox
+from bokeh.layouts import layout, widgetbox, gridplot
 from bokeh.models import ColumnDataSource, HoverTool, BoxZoomTool, ResetTool, PanTool
 from bokeh.models.widgets import Slider, Select, TextInput, Div
 from bokeh.models import WheelZoomTool, SaveTool, LassoSelectTool
@@ -52,6 +52,11 @@ def load_weekly():
 run_data_df = load_data()
 total_kms = run_data_df['kms'].sum()
 
+weekly_source = ColumnDataSource(data=load_weekly())
+all_week_number = list(load_weekly()['week_number'])
+# summary_actual = actual_weekly_vs_goal(weekly_source, all_week_number)
+# cumulative_actual = summary_cumulative(weekly_source, all_week_number)
+# l = layout([[summary_actual]], sizing_mode="scale_width")
 def modify_doc(doc):
     run_data_df = load_data()
     week_data_df = load_weekly()
@@ -107,7 +112,8 @@ def modify_doc(doc):
     inputs = widgetbox(*controls, sizing_mode="fixed")
 
 
-    charts = [summary_actual,
+    charts = [
+                summary_actual,
                 cumulative_actual,
                 desc,
                 control,
