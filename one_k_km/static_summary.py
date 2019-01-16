@@ -30,7 +30,7 @@ def summary_cumulative(source, X_AXIS):
              legend='Actual', source=source)
 
 
-    km_fig.line(x='week_number', y='cumulative_weekly_kms',
+    km_fig.line(x='week_number', y='cumulative_weekly_goal_kms',
              color='red', line_width=1,
              legend='Cumulative goal kms',source=source)
 
@@ -38,7 +38,7 @@ def summary_cumulative(source, X_AXIS):
 
     tooltips = [
             ('Cumulative actual Kilometers','@cumulative_weekly_kms'),
-            ('Cumulative goal kilometers', '@cumulative_weekly_kms'),
+            ('Cumulative goal kilometers', '@cumulative_weekly_goal_kms'),
             ('Week number', '@week')
            ]
 
@@ -50,7 +50,7 @@ def summary_cumulative(source, X_AXIS):
 def actual_weekly_vs_goal(source, X_AXIS):
     cds_bar = source
     X_AXIS = [str(x) for x in X_AXIS]
-    
+
     # Create a figure with a datetime type x-axis
     fig = figure(title='actual versus goals',
                  plot_height=300, plot_width=600,

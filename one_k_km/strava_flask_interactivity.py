@@ -49,29 +49,8 @@ def load_weekly():
     # df['week_number'] = df['week_number'].apply(str)
     return df
 
-# def select_weeks():
-#     """ Use the current selections to determine which filters to apply to the
-#     data. Return a dataframe of the selected data
-#     """
-#     df = load_data()
-#
-#     # Determine what has been selected for each widgetd
-#     week_val = weeks_runs.value
-#
-#     # Filter by week and weekly_actual_cumulative
-#     if week_val == "week 01":
-#         selected = df #[df.week == 'week 01']
-#     else:
-#         selected = df[(df.week == week_val)]
-#
-#     desc.text = f"Week: {week_val}"
-#     return selected
-
-# def update():
-#     """ Get the selected data and update the data in the source
-#     """
-#     df_active = select_weeks()
-#     source.data = ColumnDataSource(data=df_active).data
+run_data_df = load_data()
+total_kms = run_data_df['kms'].sum()
 
 def modify_doc(doc):
     run_data_df = load_data()
@@ -126,18 +105,7 @@ def modify_doc(doc):
 
 
     inputs = widgetbox(*controls, sizing_mode="fixed")
-    # l = layout([
-    #             [summary_actual],
-    #             [cumulative_actual],
-    #             [desc],
-    #             [weeks_runs],
-    #             [weekly_actual_cumulative_fig],
-    #             [p],
-    #             [week_stacked_bar]], sizing_mode="scale_width")
-    #
-    # update()
-    # curdoc().add_root(l)
-    # curdoc().title = "Yearly run analysis"
+
 
     charts = [summary_actual,
                 cumulative_actual,
@@ -157,7 +125,8 @@ def modify_doc(doc):
 @app.route('/', methods=['GET'])
 def bkapp_page():
     script = server_document('http://localhost:5006/bkapp')
-    return render_template("embed.html", script=script, template="Flask")
+    return render_template("embed.html", script=script, template="Flask",
+                            total_kms=total_kms)
 
 
 def bk_worker():
