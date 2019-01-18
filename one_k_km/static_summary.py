@@ -12,7 +12,7 @@ def summary_cumulative(source, X_AXIS):
     X_AXIS = [str(x) for x in X_AXIS]
 
     km_fig = figure(
-                      plot_height=300, plot_width=600,
+                      # plot_height=300, plot_width=600,
                       title='cumulative actual distance vs goal actual distance',
                       x_axis_label='week_number',
                       y_axis_label='Kms',
@@ -22,7 +22,7 @@ def summary_cumulative(source, X_AXIS):
 
 
     km_fig.line(x='week_number', y='cumulative_weekly_kms',
-             color='blue', line_width=1,
+             color='green', line_width=1,
              legend='Cumulative weekly kms',source=source)
 
     km_fig.vbar(x='week_number', bottom=0, top='cumulative_weekly_kms',

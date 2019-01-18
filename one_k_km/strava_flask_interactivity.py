@@ -1,6 +1,6 @@
 import pandas as pd
 from bokeh.plotting import figure
-from bokeh.layouts import layout, widgetbox, gridplot
+from bokeh.layouts import layout, widgetbox, gridplot, column, row
 from bokeh.models import ColumnDataSource, HoverTool, BoxZoomTool, ResetTool, PanTool
 from bokeh.models.widgets import Slider, Select, TextInput, Div
 from bokeh.models import WheelZoomTool, SaveTool, LassoSelectTool
@@ -15,7 +15,6 @@ from static_summary import actual_weekly_vs_goal, summary_cumulative
 from flask import Flask, render_template
 
 from bokeh.embed import server_document, components
-from bokeh.layouts import column
 from bokeh.server.server import Server
 from bokeh.themes import Theme
 from tornado.ioloop import IOLoop
@@ -112,17 +111,39 @@ def modify_doc(doc):
     inputs = widgetbox(*controls, sizing_mode="fixed")
 
 
-    charts = [
+    # charts = [
+    #             summary_actual,
+    #             cumulative_actual,
+    #             desc,
+    #             control,
+    #             weekly_actual_cumulative_fig,
+    #             p,
+    #             week_stacked_bar]
+    charts_all = [
                 summary_actual,
                 cumulative_actual,
-                desc,
-                control,
-                weekly_actual_cumulative_fig,
-                p,
-                week_stacked_bar]
-    for chart in charts:
-        doc.add_root(column(chart))
+            ]
+    # charts_row = [
+    #             control,
+    #             weekly_actual_cumulative_fig,
+    #             ]
+    # charts_row_2 = [
+    #             p,
+    #             week_stacked_bar,
+    #             ]
 
+
+    for chart_all in charts_all:
+        doc.add_root(column(chart_all))
+    doc.add_root(gridplot(
+        children=[[control,desc], [weekly_actual_cumulative_fig, p], [week_stacked_bar, None]],
+        toolbar_location='right',
+        sizing_mode='fixed',
+        plot_width = 100,
+        plot_height = 50,
+        merge_tools = True,
+        toolbar_options=dict(logo='grey')
+    ))
 
     doc.theme = Theme(filename="theme.yaml")
 
@@ -130,16 +151,11 @@ def modify_doc(doc):
 @app.route('/', methods=['GET'])
 def bkapp_page():
     script = server_document('http://localhost:5006/bkapp')
-    # runs_script, runs_div = components((cumulative_actual_module, summary_actual_module))
-    # a_script, a_div = components(summary_actual_module)
-
 
     return render_template("embed.html",
                             script=script,
                             template="Flask",
                             total_kms=total_kms,
-                            # the_div=runs_div,
-							# the_script=runs_script
                             )
 
 

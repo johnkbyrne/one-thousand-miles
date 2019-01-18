@@ -13,15 +13,15 @@ def stacked_bar_chart(source, x_axis):
     source = source
 
     stack_kms_goals = figure(x_range=x_axis,
-                             plot_height=300,
-                             plot_width=600,
+                             # plot_height=300,
+                             # plot_width=600,
                              title="runs by day",
                              toolbar_location=None,
                              tools="",
                              x_axis_label='Day of the week',
                              y_axis_label='KMS',)
 
-    colors = ['red', 'blue']
+    colors = ['red', 'green']
     km_type = ['weekly_actual_cumulative', 'diff_actual_vs_total']
 
     stack_kms_goals.vbar_stack(km_type,
