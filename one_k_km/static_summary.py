@@ -12,7 +12,7 @@ def summary_cumulative(source, X_AXIS):
     X_AXIS = [str(x) for x in X_AXIS]
 
     km_fig = figure(
-                      # plot_height=300, plot_width=600,
+                      plot_height=300, plot_width=800,
                       title='cumulative actual distance vs goal actual distance',
                       x_axis_label='week_number',
                       y_axis_label='Kms',
@@ -22,16 +22,16 @@ def summary_cumulative(source, X_AXIS):
 
 
     km_fig.line(x='week_number', y='cumulative_weekly_kms',
-             color='green', line_width=1,
+             color='#9ecae1', line_width=3,
              legend='Cumulative weekly kms',source=source)
 
     km_fig.vbar(x='week_number', bottom=0, top='cumulative_weekly_kms',
-             color='blue', width=0.75,
+             color='#084594', width=0.75,
              legend='Actual', source=source)
 
 
     km_fig.line(x='week_number', y='cumulative_weekly_goal_kms',
-             color='red', line_width=1,
+             color='#9ecae1', line_width=3,
              legend='Cumulative goal kms',source=source)
 
     km_fig.legend.location = 'top_left'
@@ -52,8 +52,8 @@ def actual_weekly_vs_goal(source, X_AXIS):
     X_AXIS = [str(x) for x in X_AXIS]
 
     # Create a figure with a datetime type x-axis
-    fig = figure(title='actual versus goals',
-                 plot_height=300, plot_width=600,
+    fig = figure(title='Actual versus goals',
+                 plot_height=300, plot_width=800,
                  x_axis_label='Week number', y_axis_label='KMs',
                  x_minor_ticks=2,
                  y_range=(0, 50),
@@ -62,12 +62,12 @@ def actual_weekly_vs_goal(source, X_AXIS):
 
     # The daily words will be represented as vertical bars (columns)
     fig.vbar(x='week_number', bottom=0, top='kms',
-             color='blue', width=0.75,
+             color='#084594', width=0.75,
              legend='Actual', source=cds_bar)
 
     # The cumulative sum will be a trend line
     fig.line(x='week_number', y='weekly_goal',
-             color='red', line_width=1,
+             color='#9ecae1', line_width=1,
              legend='Goal', source=cds_bar)
 
     # Put the legend in the upper left corner

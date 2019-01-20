@@ -45,7 +45,7 @@ def load_data():
 @lru_cache()
 def load_weekly():
     df = pd.read_csv('data/strava_weekly_data.csv', index_col=0)
-    # df['week_number'] = df['week_number'].apply(str)
+
     return df
 
 run_data_df = load_data()
@@ -53,8 +53,6 @@ total_kms = run_data_df['kms'].sum()
 
 weekly_source = ColumnDataSource(data=load_weekly())
 all_week_number = list(load_weekly()['week_number'])
-# summary_actual_module = actual_weekly_vs_goal(weekly_source, all_week_number)
-# cumulative_actual_module = summary_cumulative(weekly_source, all_week_number)
 
 def modify_doc(doc):
     run_data_df = load_data()
@@ -65,9 +63,8 @@ def modify_doc(doc):
 
     X_AXIS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
-
     desc = Div(text="Weekly runs", width=800)
-    weeks_runs = Select(title="Choose Week", options=all_weeks, value="Week 01")
+    weeks_runs = Select(title="Choose Week", options=all_weeks, value="week 1.0", width=600)
 
     source = ColumnDataSource(data=load_data())
     weekly_source = ColumnDataSource(data=load_weekly())
@@ -78,6 +75,8 @@ def modify_doc(doc):
     week_stacked_bar = stacked_bar_chart(source, X_AXIS)
     weekly_actual_cumulative_fig = actual_goal_cumulative(source, X_AXIS)
 
+    
+
     def select_weeks():
         """ Use the current selections to determine which filters to apply to the
         data. Return a dataframe of the selected data
@@ -86,14 +85,19 @@ def modify_doc(doc):
 
         # Determine what has been selected for each widgetd
         week_val = weeks_runs.value
+        print(week_val)
 
         # Filter by week and weekly_actual_cumulative
-        if week_val == "week 01":
-            selected = df #[df.week == 'week 01']
-        else:
-            selected = df[(df.week == week_val)]
+        # if week_val == "week 1.0":
+        #     selected = df[(df.week == 'week 1.0')]
+        #     desc.text = "Showing data for Week 1.0"
+        # else:
+        #     selected = df[(df.week == week_val)]
+        #     desc.text = f"Showing data for {week_val}"
 
+        selected = df[(df.week == week_val)]
         desc.text = f"Showing data for {week_val}"
+
         return selected
 
     def update():
@@ -110,7 +114,6 @@ def modify_doc(doc):
 
     inputs = widgetbox(*controls, sizing_mode="fixed")
 
-
     # charts = [
     #             summary_actual,
     #             cumulative_actual,
@@ -119,10 +122,9 @@ def modify_doc(doc):
     #             weekly_actual_cumulative_fig,
     #             p,
     #             week_stacked_bar]
-    charts_all = [
-                summary_actual,
-                cumulative_actual,
-            ]
+
+    charts_all = [summary_actual,
+                cumulative_actual]
     # charts_row = [
     #             control,
     #             weekly_actual_cumulative_fig,
@@ -135,22 +137,26 @@ def modify_doc(doc):
 
     for chart_all in charts_all:
         doc.add_root(column(chart_all))
+    # doc.add_root(column(children=[summary_actual, cumulative_actual], sizing_mode='stretch_both'))
+# >>> column(children=[widget_box_1, plot_1], sizing_mode='stretch_both')
+    # doc.theme = Theme(filename="theme.yaml")
+
     doc.add_root(gridplot(
-        children=[[control,desc], [weekly_actual_cumulative_fig, p], [week_stacked_bar, None]],
+        children=[[control,desc], [weekly_actual_cumulative_fig, p]],
         toolbar_location='right',
         sizing_mode='fixed',
-        plot_width = 100,
-        plot_height = 50,
+        plot_width = 400,
+        plot_height = 300,
         merge_tools = True,
         toolbar_options=dict(logo='grey')
     ))
 
-    doc.theme = Theme(filename="theme.yaml")
-
+    doc.add_root(column(week_stacked_bar))
 
 @app.route('/', methods=['GET'])
 def bkapp_page():
     script = server_document('http://localhost:5006/bkapp')
+
 
     return render_template("embed.html",
                             script=script,

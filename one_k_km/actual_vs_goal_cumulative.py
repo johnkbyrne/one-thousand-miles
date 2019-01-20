@@ -12,20 +12,21 @@ def actual_goal_cumulative(source, x_axis):
 
     # Create a figure with a datetime type x-axis
     fig = figure(title='actual versus goals',
-                 # plot_height=300, plot_width=600,
+                 plot_height=500, plot_width=800,
                  x_axis_label='Week Number', y_axis_label='Cumulative KMs',
                  x_minor_ticks=2, y_range=(0, 50),
                  x_range=x_axis,
-                 toolbar_location=None)
+                 toolbar_location=None,
+                 )
 
     # The daily words will be represented as vertical bars (columns)
     fig.vbar(x='day_of_week', bottom=0, top='weekly_actual_cumulative',
-             color='green', width=0.75,
+             color='#084594', width=0.75,
              legend='Actual', source=cds_bar)
 
     # The cumulative sum will be a trend line
     fig.line(x='day_of_week', y='weekly_goal_cumulative',
-             color='red', line_width=4,
+             color='#9ecae1', line_width=4,
              legend='Goal', source=cds_bar)
 
     # Put the legend in the upper left corner

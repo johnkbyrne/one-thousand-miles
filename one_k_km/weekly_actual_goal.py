@@ -22,22 +22,22 @@ def weekly_actual_goal(source, X_AXIS):
     ]
 
     p = figure(
-        # plot_height=300,
-        # plot_width=600,
+        plot_height=300,
+        plot_width=800,
         title="Weekly running",
         tools='',
         x_axis_label="Day of the week",
-        y_axis_label="day of the week",
+        y_axis_label="KMs",
         toolbar_location="above",
         x_range=X_AXIS,
-        x_minor_ticks=2, y_range=(0, 15),)
+        x_minor_ticks=2, y_range=(0, 20),)
 
     p.vbar(x='day_of_week', bottom=0, top='kms',
-             color='green', width=0.75,
+             color='#084594', width=0.75,
              legend='Actual', source=source)
 
     p.line(x='day_of_week', y='daily_goal',
-             color='red', line_width=5,
+             color='#9ecae1', line_width=5,
 
              legend='Goal', source=source)
 
