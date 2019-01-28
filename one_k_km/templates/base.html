@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bar charts with Bokeh!</title>
+    <title>Running goals tracking</title>
     <link href="http://cdn.pydata.org/bokeh/release/bokeh-1.0.2.min.css" rel="stylesheet">
     <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.2.min.css" rel="stylesheet">
     <link href="http://cdn.pydata.org/bokeh/release/bokeh-tables-1.0.2.min.css" rel="stylesheet">
@@ -54,6 +54,14 @@
   .dropdown-menu li a:hover {
     background-color: red !important;
   }
+  .jumbotron {
+    margin-bottom: 0;
+    background-color: #2d2d30;
+    border: 0;
+    font-size: 11px !important;
+    letter-spacing: 4px;
+    opacity: 0.9;
+  }
   </style>
   </head>
   <body>
@@ -67,24 +75,7 @@
           </button>
           <a class="navbar-brand" href="#">Running 2018</a>
         </div>
-        <!-- <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#myPage">HOME</a></li>
-            <li><a href="#band">BAND</a></li>
-            <li><a href="#tour">TOUR</a></li>
-            <li><a href="#contact">CONTACT</a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Merchandise</a></li>
-                <li><a href="#">Extras</a></li>
-                <li><a href="#">Media</a></li>
-              </ul>
-            </li>
-            <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-          </ul>
-        </div> -->
+
       </div>
     </nav>
     <div>
@@ -118,7 +109,6 @@
 
     </div>
 
-
   </div>
     </div>
     <div>
@@ -130,10 +120,13 @@
 
     </div>
 
-
   </div>
     </div>
 		{% block content %}
 		{% endblock %}
+
+    <div class="jumbotron text-center" style="margin-bottom:0">
+      <p>Footer</p>
+    </div>
 	</body>
 </html>
