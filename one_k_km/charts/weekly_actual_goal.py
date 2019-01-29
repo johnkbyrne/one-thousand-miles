@@ -7,9 +7,6 @@ def weekly_actual_goal(source, X_AXIS):
 
     source = source
 
-    week_1_view = CDSView(source=source,
-                       filters=[GroupFilter(column_name='week', group='week 1.0')])
-
     p = figure(
         plot_height=300,
         plot_width=800,
@@ -25,13 +22,13 @@ def weekly_actual_goal(source, X_AXIS):
     p.vbar(
                 x='day_of_week', bottom=0, top='kms',
                 color='#084594', width=0.75,
-                legend='Actual', source=source,
+                legend='Actual', source=source
              )
 
     p.line(
                 x='day_of_week', y='daily_goal',
                 color='#9ecae1', line_width=5,
-                legend='Goal', source=source,
+                legend='Goal', source=source
              )
 
     tooltips = [
@@ -72,6 +69,49 @@ def total_kms_day(source, X_AXIS):
            ]
 
            # Add the HoverTool to the figure
+    p.add_tools(HoverTool(tooltips=tooltips))
+
+    return p
+
+def weekly_actual_goal_filter(source, X_AXIS):
+
+    source = source
+
+    week_1_view = CDSView(source=source,
+                       filters=[GroupFilter(column_name='week', group='week 1.0')])
+
+    p = figure(
+        plot_height=300,
+        plot_width=800,
+        title="Weekly running",
+        tools='',
+        x_axis_label="Day of the week",
+        y_axis_label="KMs",
+        toolbar_location="above",
+        x_range=X_AXIS,
+        x_minor_ticks=2, y_range=(0, 20),
+        )
+
+    p.vbar(
+                x='day_of_week', bottom=0, top='kms',
+                color='#084594', width=0.75,
+                legend='Actual', source=source,
+                view=week_1_view,
+             )
+
+    p.line(
+                x='day_of_week', y='daily_goal',
+                color='#9ecae1', line_width=5,
+                legend='Goal', source=source,
+                view=week_1_view,
+             )
+
+    tooltips = [
+            ('Kilometers','@kms'),
+            ('Week number', '@week'),
+           ]
+
+# Add the HoverTool to the figure
     p.add_tools(HoverTool(tooltips=tooltips))
 
     return p
