@@ -1,1 +1,1 @@
-web gunicorn manage:strava_flask_interactivity
+web python strava_flask_interactivity.py
