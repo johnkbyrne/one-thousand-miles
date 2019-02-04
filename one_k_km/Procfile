@@ -1,1 +1,1 @@
-web: Flask app: strava_flask_interactivity.py
+web: python app: strava_flask_interactivity.py
