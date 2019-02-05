@@ -118,7 +118,7 @@ def bkapp_page():
 
 
     return render_template(
-                            "embed.html",
+                            "index.html",
                             script=script,
                             template="Flask",
                             total_kms=total_kms,
