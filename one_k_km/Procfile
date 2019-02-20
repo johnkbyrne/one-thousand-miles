@@ -1,1 +1,1 @@
-web: gunicorn app: strava_flask_interactivity.py
+web: gunicorn app: app
